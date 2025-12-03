@@ -55,6 +55,31 @@ export const resolvers = {
                 }
             } else
                 throw new Error('Unauthorized') 
+        },
+        deleteData: (parent, args) => {
+            const id = Number(args.id)
+            const user = getUserById(id)
+            if(!user)
+                throw new Error('Record not found')
+            const data = getUsers()
+            const index = data.findIndex(person => person.id === id)
+            if(index > -1) {
+                const deletedUser = data.splice(index, 1)[0]
+                return deletedUser
+            }
+        },
+        updateData: (parent, args) => {
+            const id = Number(args.id)
+            const user = getUserById(id)
+            if(!user)
+                throw new Error('Record not found')
+            const updatedUser = {id, ...user, ...args}
+            const data = getUsers()
+            const index = data.findIndex(person => person.id === id)
+            if(index > -1) {
+                data[index] = updatedUser
+                return updatedUser
+            }
         }
     }
 }

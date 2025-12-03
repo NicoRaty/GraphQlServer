@@ -56,5 +56,17 @@ export const typeDefs = `
             surname: String!
         ): Data
         login(username: String!, password: String!): AuthPayload
+        """
+        Update existing data record
+        """
+        updateData(
+            id: ID!
+            forename: String!
+            surname: String!
+        ): Data
+        """
+        Delete a data record
+        """
+        deleteData(id: ID!): Data
     }
 `
